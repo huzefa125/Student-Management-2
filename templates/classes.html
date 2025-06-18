@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Classes | Smart School Management{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-3xl font-extrabold text-blue-800">Classes</h1>
+        <a href="{% url 'add_class' %}" class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition flex items-center font-semibold text-lg">
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            Add Class
+        </a>
+    </div>
+    <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full bg-white divide-y divide-gray-200">
+            <thead class="bg-blue-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">Class Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-blue-700 uppercase tracking-wider">Class Teacher</th>
+                    <th class="px-6 py-3 text-right text-xs font-bold text-blue-700 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for class_obj in classes %}
+                <tr class="hover:bg-blue-100 transition">
+                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{{ class_obj.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ class_obj.class_teacher|default:'—' }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right">
+                        <a href="{% url 'edit_class' class_obj.pk %}" class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-4" title="Edit">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m2 2l-6 6m2 2l-6 6"/></svg>
+                        </a>
+                        <a href="{% url 'delete_class' class_obj.pk %}" class="inline-flex items-center text-red-600 hover:text-red-800" title="Delete">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="px-6 py-4 text-center text-gray-400">No classes found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %} 

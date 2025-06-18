@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if edit %}Edit{% else %}Add{% endif %} Teacher | Smart School Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-8 relative">
+        <a href="{% url 'teachers' %}" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </a>
+        <h2 class="text-xl font-bold mb-4">{% if edit %}Edit{% else %}Add{% endif %} Teacher</h2>
+        <form method="post" class="space-y-4">{% csrf_token %}
+            <div>
+                <label class="block text-gray-700 mb-2 font-semibold">First Name</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.first_name.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-gray-700 mb-2 font-semibold">Last Name</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.last_name.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            <div>
+                <label class="block text-gray-700 mb-2 font-semibold">Subject</label>
+                {{ form.subject }}
+                {% if form.subject.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.subject.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            <div class="flex justify-end mt-4">
+                <a href="{% url 'teachers' %}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded mr-2">Cancel</a>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html> 
